@@ -31,7 +31,9 @@ jobs:
         env: [DEV, UAT, PROD]
       fail-fast: false
     
-    # environment: ${{ matrix.env }}
+    env:
+      TF_WORKSPACE: ${{ matrix.env }}-${{ vars.APP_NAME }}
+      TF_ORG: ${{ vars.TF_ORG }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -58,10 +60,6 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-
-      - name: Select/Create Workspace
-        id: workspace
-        run: terraform workspace select ${{ matrix.env }}-${{ vars.APP_NAME }}
 
       # Validates if your terraform configuration is syntactically valid and internally consistent
       - name: Terraform Validate
@@ -142,7 +140,9 @@ jobs:
         env: [DEV, UAT, PROD]
       fail-fast: false
     
-    environment: ${{ matrix.env }}
+    env:
+      TF_WORKSPACE: ${{ matrix.env }}-${{ vars.APP_NAME }}
+      TF_ORG: ${{ vars.TF_ORG }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
