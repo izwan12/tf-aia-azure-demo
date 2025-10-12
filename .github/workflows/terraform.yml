@@ -21,8 +21,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  terraform:
-    name: "Terraform Deployment"
+  terraform_plan:
+    name: "Terraform Plan"
     runs-on: ubuntu-latest
 
     # Matrix to run per environment
@@ -30,8 +30,6 @@ jobs:
       matrix:
         env: [DEV, UAT, PROD]
       fail-fast: false
-    
-    environment: ${{ matrix.env }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -130,7 +128,57 @@ jobs:
               })
             }
 
+  terraform_apply:
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+
+    # Matrix to run per environment
+    strategy:
+      matrix:
+        env: [DEV, UAT, PROD]
+      fail-fast: false
+    
+    environment: ${{ matrix.env }}
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_TOKEN }}
+
+      # Checks that all Terraform configuration files adhere to a canonical format
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        id: init
+        run: |
+          terraform init \
+            -backend-config="organization=izwan-terraform-org" \
+            -backend-config="workspaces[name]=${{ matrix.env }}-${{ env.APP_NAME }}"
+
+      # Validates if your terraform configuration is syntactically valid and internally consistent
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      # Generates an execution plan for Terraform
+      - name: Terraform Plan
+        run: terraform plan -var-file="environments/${{ matrix.env }}/terraform.tfvars" -input=false
+
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        environment: ${{ matrix.env }}
         run: terraform apply -var-file="environments/${{ matrix.env }}/terraform.tfvars" -auto-approve -input=false
