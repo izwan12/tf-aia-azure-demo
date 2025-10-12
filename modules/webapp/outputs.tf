@@ -1,4 +1,4 @@
 output "webapp_url" {
-  description = "URLs for all deployed environments"
-  value       = { for k, m in module.webapp : k => m.app_url }
+  description = "URL of the web app"
+  value       = azurerm_linux_web_app.this.default_site_hostname
 }
