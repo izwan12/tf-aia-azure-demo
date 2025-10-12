@@ -18,14 +18,12 @@ resource "azurerm_linux_web_app" "this" {
   service_plan_id     = azurerm_service_plan.this.id
 
   site_config {
-    linux_fx_version = "DOCKER|${var.docker_image}"
+    application_stack {
+      docker_image_name = var.docker_image
+    }
 
     app_command_line = "/bin/sh -lc \"echo 'This is ${var.env} environment.' > /usr/local/apache2/htdocs/index.html && httpd-foreground\""
 
     always_on = true
-  }
-
-  app_settings = {
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
   }
 }
