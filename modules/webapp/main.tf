@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "this" {
 }
 
 resource "azurerm_service_plan" "this" {
-  name                = var.env + "-" + var.name_prefix
+  name                = "${var.env}-${var.name_prefix}"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   os_type             = var.os_type
