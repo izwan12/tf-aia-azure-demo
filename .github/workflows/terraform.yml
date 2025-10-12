@@ -56,7 +56,7 @@ jobs:
 
       # 3️⃣ List the environment folder (debug)
       - name: Verify environment folder
-        run: ls -R environments/${{ matrix.env }}
+        run: ls -R
 
       # Checks that all Terraform configuration files adhere to a canonical format
       - name: Terraform Format
