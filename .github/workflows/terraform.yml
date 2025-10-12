@@ -51,10 +51,6 @@ jobs:
         with:
           cli_config_credentials_token: ${{ secrets.TF_TOKEN }}
 
-      # 3️⃣ List the environment folder (debug)
-      - name: Verify environment folder
-        run: ls -R
-
       # Checks that all Terraform configuration files adhere to a canonical format
       - name: Terraform Format
         id: fmt
