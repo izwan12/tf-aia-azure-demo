@@ -5,6 +5,7 @@ module "webapps" {
   name_prefix  = local.name_prefix
   env          = each.value.env
   location     = each.value.location
-  asp_sku      = each.value.asp_sku
+  sku_name     = each.value.asp_sku
+  os_type      = each.value.os_type
   docker_image = each.value.docker_image
 }

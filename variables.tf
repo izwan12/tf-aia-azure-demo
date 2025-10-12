@@ -3,7 +3,8 @@ variable "webapp_vars" {
   type = list(object({
     env          = string
     location     = string
-    asp_sku      = string
+    sku_name     = string
     docker_image = string
+    os_type      = string
   }))
 }

@@ -3,25 +3,19 @@ resource "azurerm_resource_group" "this" {
   location = var.location
 }
 
-resource "azurerm_app_service_plan" "this" {
-  name                = "${var.name_prefix}-${var.env}-asp"
-  location            = azurerm_resource_group.this.location
+resource "azurerm_service_plan" "this" {
+  name                = var.env + "-" + var.name_prefix
   resource_group_name = azurerm_resource_group.this.name
-  kind                = "Linux"
-
-  reserved = true
-
-  sku {
-    tier = contains(["B1", "B2", "B3"], var.asp_sku) ? "Basic" : (starts_with(var.asp_sku, "P") ? "PremiumV2" : "Standard")
-    size = var.asp_sku
-  }
+  location            = azurerm_resource_group.this.location
+  os_type             = var.os_type
+  sku_name            = var.sku_name
 }
 
 resource "azurerm_linux_web_app" "this" {
   name                = "${var.name_prefix}-${var.env}"
-  location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
-  service_plan_id     = azurerm_app_service_plan.this.id
+  location            = azurerm_resource_group.this.location
+  service_plan_id     = azurerm_service_plan.this.id
 
   site_config {
     linux_fx_version = "DOCKER|${var.docker_image}"

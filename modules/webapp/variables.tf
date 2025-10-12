@@ -18,7 +18,12 @@ variable "docker_image" {
   default = "httpd:latest"
 }
 
-variable "asp_sku" {
+variable "sku_name" {
   type    = string
   default = "B1"
+}
+
+variable "os_type" {
+  type    = string
+  default = "Linux"
 }
