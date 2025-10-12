@@ -32,7 +32,7 @@ jobs:
       fail-fast: false
     
     environment: ${{ matrix.env }}
-    
+
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
@@ -60,7 +60,7 @@ jobs:
         run: |
           terraform init \
             -backend-config="organization=izwan-terraform-org" \
-            -backend-config="workspaces=name=${{ matrix.env }}-${{ matrix.env }}"
+            -backend-config="workspaces=name=${{ matrix.env }}-${{ env.APP_NAME }}"
 
       # Validates if your terraform configuration is syntactically valid and internally consistent
       - name: Terraform Validate
