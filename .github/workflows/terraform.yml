@@ -59,7 +59,7 @@ jobs:
         id: init
         run: |
           terraform init \
-            -backend-config="organization=izwan-terraform-org" \
+            -backend-config="organization=${{ vars.TF_ORG }}" \
           terraform workspace select "${{ matrix.env }}-${{ vars.APP_NAME }}"
 
       # Validates if your terraform configuration is syntactically valid and internally consistent
