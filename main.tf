@@ -1,4 +1,4 @@
-module "webapps" {
+module "webapp" {
   for_each = { for webapp in var.webapp_vars : webapp.env => webapp }
 
   source       = "./modules/webapp"
