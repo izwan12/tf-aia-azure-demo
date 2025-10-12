@@ -134,6 +134,6 @@ jobs:
 
     # On push to "main", build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       environment: ${{ matrix.env }}
       run: terraform apply -var-file="environments/${{ matrix.env }}/terraform.tfvars" -auto-approve -input=false
