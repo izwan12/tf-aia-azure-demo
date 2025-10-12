@@ -5,8 +5,5 @@ terraform {
       version = ">= 4.0"
     }
   }
-}
-
-provider "azurerm" {
-  # Configuration options
+  backend "remote" {}
 }
