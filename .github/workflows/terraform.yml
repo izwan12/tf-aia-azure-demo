@@ -32,7 +32,7 @@ jobs:
       fail-fast: false
     
     env:
-      TF_WORKSPACE: ${{ matrix.env | upper }}-${{ vars.APP_NAME }}
+      TF_WORKSPACE: ${{ matrix.env }}-${{ vars.APP_NAME }}
       TF_CLOUD_ORGANIZATION: ${{ vars.TF_ORG }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -44,6 +44,9 @@ jobs:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set TF_WORKSPACE
+        run: echo "TF_WORKSPACE=${TF_WORKSPACE@U}" >> $GITHUB_ENV
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
