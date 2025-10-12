@@ -142,7 +142,7 @@ jobs:
     
     env:
       TF_WORKSPACE: ${{ matrix.env }}-${{ vars.APP_NAME }}
-      TF_ORG: ${{ vars.TF_ORG }}
+      TF_CLOUD_ORGANIZATION: ${{ vars.TF_ORG }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
