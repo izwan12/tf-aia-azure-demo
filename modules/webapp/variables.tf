@@ -1,23 +1,22 @@
 variable "env" {
-  type = string
+  type    = string
+  default = "dev"
 }
-
 
 variable "location" {
-  type = string
+  type    = string
+  default = "East US"
 }
-
 
 variable "name_prefix" {
-  type = string
+  type    = string
+  default = "demo"
 }
-
 
 variable "docker_image" {
   type    = string
-  default = "httpd:2.4"
+  default = "httpd:latest"
 }
-
 
 variable "asp_sku" {
   type    = string
