@@ -28,11 +28,11 @@ jobs:
     # Matrix to run per environment
     strategy:
       matrix:
-        env: [DEV, UAT, PROD]
+        env: [dev, uat, prod]
       fail-fast: false
     
     env:
-      TF_WORKSPACE: ${{ matrix.env }}-${{ vars.APP_NAME }}
+      TF_WORKSPACE: ${{ matrix.env | upper }}-${{ vars.APP_NAME }}
       TF_CLOUD_ORGANIZATION: ${{ vars.TF_ORG }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -68,7 +68,7 @@ jobs:
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -var-file="environments/${{ lower(matrix.env) }}/terraform.tfvars" -input=false
+        run: terraform plan -var-file="environments/${{ matrix.env }}/terraform.tfvars" -input=false
 
       # Add comment to the current PR for the Terraform Plan output
       - uses: actions/github-script@v7
@@ -179,9 +179,9 @@ jobs:
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -var-file="environments/${{ lower(matrix.env) }}/terraform.tfvars" -input=false
+        run: terraform plan -var-file="environments/${{ matrix.env }}/terraform.tfvars" -input=false
         
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -var-file="environments/${{ lower(matrix.env) }}/terraform.tfvars" -auto-approve -input=false
+        run: terraform apply -var-file="environments/${{ matrix.env }}/terraform.tfvars" -auto-approve -input=false
