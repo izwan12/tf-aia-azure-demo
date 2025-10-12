@@ -5,5 +5,7 @@ terraform {
       version = ">= 4.0"
     }
   }
-  cloud {}
+  cloud {
+    organization = "izwan-terraform-org"
+  }
 }
