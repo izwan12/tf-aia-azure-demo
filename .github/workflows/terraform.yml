@@ -168,9 +168,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: |
-          terraform init \
-            -backend-config="organization=izwan-terraform-org" \
-            -backend-config="workspaces[name]=${{ matrix.env }}-${{ env.APP_NAME }}"
+          terraform init
 
       # Validates if your terraform configuration is syntactically valid and internally consistent
       - name: Terraform Validate
