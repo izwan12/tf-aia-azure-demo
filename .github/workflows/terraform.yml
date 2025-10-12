@@ -30,6 +30,8 @@ jobs:
       matrix:
         env: [DEV, UAT, PROD]
       fail-fast: false
+    
+    # environment: ${{ matrix.env }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -131,6 +133,7 @@ jobs:
   terraform_apply:
     name: "Terraform Apply"
     runs-on: ubuntu-latest
+    needs: terraform_plan
 
     # Matrix to run per environment
     strategy:
@@ -176,9 +179,8 @@ jobs:
       # Generates an execution plan for Terraform
       - name: Terraform Plan
         run: terraform plan -var-file="environments/${{ matrix.env }}/terraform.tfvars" -input=false
-
+        
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        environment: ${{ matrix.env }}
         run: terraform apply -var-file="environments/${{ matrix.env }}/terraform.tfvars" -auto-approve -input=false
