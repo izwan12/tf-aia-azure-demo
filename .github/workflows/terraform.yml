@@ -60,7 +60,7 @@ jobs:
         run: |
           terraform init \
             -backend-config="organization=izwan-terraform-org" \
-            -backend-config="workspaces[name]=${{ matrix.env }}-${{ env.APP_NAME }}"
+          terraform workspace select "${{ matrix.env }}-${{ vars.APP_NAME }}"
 
       # Validates if your terraform configuration is syntactically valid and internally consistent
       - name: Terraform Validate
