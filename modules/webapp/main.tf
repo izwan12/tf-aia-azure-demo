@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "this" {
-  name     = "${var.name_prefix}-${var.env}-rg"
+  name     = "${var.env}-${var.name_prefix}-rg"
   location = var.location
 }
 
@@ -12,7 +12,7 @@ resource "azurerm_service_plan" "this" {
 }
 
 resource "azurerm_linux_web_app" "this" {
-  name                = "${var.name_prefix}-${var.env}"
+  name                = "${var.env}-${var.name_prefix}"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   service_plan_id     = azurerm_service_plan.this.id
