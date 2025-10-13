@@ -26,7 +26,8 @@ resource "azurerm_linux_web_app" "this" {
   }
 
   app_settings = {
-    "ENVIRONMENT"     = var.env
-    "STARTUP_COMMAND" = "/bin/sh -c 'echo This is $ENVIRONMENT environment. > /usr/local/apache2/htdocs/index.html && exec httpd-foreground'"
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
+    "ENVIRONMENT"                         = var.env
+    "STARTUP_COMMAND"                     = "/bin/sh -c 'echo This is $ENVIRONMENT environment. > /usr/local/apache2/htdocs/index.html && exec httpd-foreground'"
   }
 }
