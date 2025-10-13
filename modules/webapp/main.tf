@@ -19,8 +19,14 @@ resource "azurerm_linux_web_app" "this" {
 
   site_config {
     application_stack {
-      docker_image_name = var.docker_image
+      docker_image_name   = var.docker_image
+      docker_registry_url = var.docker_registry
     }
     always_on = false
+  }
+
+  app_settings = {
+    "ENVIRONMENT"     = var.env
+    "STARTUP_COMMAND" = "/bin/sh -c 'echo This is $ENVIRONMENT environment. > /usr/local/apache2/htdocs/index.html && exec httpd-foreground'"
   }
 }

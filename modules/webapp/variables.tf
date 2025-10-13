@@ -18,6 +18,11 @@ variable "docker_image" {
   default = "httpd:latest"
 }
 
+variable "docker_registry" {
+  type    = string
+  default = "https://index.docker.io"
+}
+
 variable "sku_name" {
   type    = string
   default = "B1"
