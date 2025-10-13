@@ -141,7 +141,7 @@ jobs:
         env: [dev, uat, prod]
       fail-fast: false
     
-    environments: ${{ matrix.env }}
+    environment: ${{ matrix.env }}
 
     env:
       TF_WORKSPACE: ${{ matrix.env }}-${{ vars.APP_NAME }}
