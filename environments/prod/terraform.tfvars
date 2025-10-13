@@ -1,7 +1,7 @@
 webapp_vars = [
   {
     env          = "prod"
-    location     = "East US"
+    location     = "Canada Central"
     sku_name     = "F1"
     os_type      = "Linux"
     docker_image = "httpd:latest"
