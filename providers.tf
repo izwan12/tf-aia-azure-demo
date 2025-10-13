@@ -7,3 +7,7 @@ terraform {
   }
   cloud {}
 }
+
+provider "azurerm" {
+  features {}
+}

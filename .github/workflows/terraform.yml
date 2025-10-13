@@ -30,7 +30,7 @@ jobs:
       matrix:
         env: [dev, uat, prod]
       fail-fast: false
-    
+
     env:
       TF_WORKSPACE: ${{ matrix.env }}-${{ vars.APP_NAME }}
       TF_CLOUD_ORGANIZATION: ${{ vars.TF_ORG }}
@@ -44,9 +44,6 @@ jobs:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set TF_WORKSPACE
-        run: echo "TF_WORKSPACE=${TF_WORKSPACE@U}" >> $GITHUB_ENV
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
@@ -142,7 +139,7 @@ jobs:
       matrix:
         env: [DEV, UAT, PROD]
       fail-fast: false
-    
+
     env:
       TF_WORKSPACE: ${{ matrix.env }}-${{ vars.APP_NAME }}
       TF_CLOUD_ORGANIZATION: ${{ vars.TF_ORG }}
@@ -183,7 +180,7 @@ jobs:
       # Generates an execution plan for Terraform
       - name: Terraform Plan
         run: terraform plan -var-file="environments/${{ matrix.env }}/terraform.tfvars" -input=false
-        
+
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'

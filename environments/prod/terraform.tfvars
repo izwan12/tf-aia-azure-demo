@@ -2,7 +2,8 @@ webapp_vars = [
   {
     env          = "prod"
     location     = "East US"
-    asp_sku      = "B1"
+    sku_name     = "B1"
+    os_type      = "Linux"
     docker_image = "httpd:latest"
   }
 ]
