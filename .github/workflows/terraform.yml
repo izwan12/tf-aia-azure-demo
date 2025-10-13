@@ -133,6 +133,7 @@ jobs:
     name: "Terraform Apply"
     runs-on: ubuntu-latest
     needs: terraform_plan
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     # Matrix to run per environment
     strategy:
@@ -180,5 +181,4 @@ jobs:
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -var-file="environments/${{ matrix.env }}/terraform.tfvars" -auto-approve -input=false
