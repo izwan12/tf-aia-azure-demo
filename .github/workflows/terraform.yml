@@ -137,7 +137,7 @@ jobs:
     # Matrix to run per environment
     strategy:
       matrix:
-        env: [DEV, UAT, PROD]
+        env: [dev, uat, prod]
       fail-fast: false
 
     env:
@@ -152,8 +152,6 @@ jobs:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
@@ -169,8 +167,7 @@ jobs:
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         id: init
-        run: |
-          terraform init
+        run: terraform init
 
       # Validates if your terraform configuration is syntactically valid and internally consistent
       - name: Terraform Validate
