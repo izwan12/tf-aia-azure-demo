@@ -23,11 +23,9 @@ resource "azurerm_linux_web_app" "this" {
       docker_registry_url = var.docker_registry
     }
     always_on = false
-
-    app_command_line = "/bin/sh -c 'mkdir -p /home/site/wwwroot && printf \"This is ${var.env} environment.\" > /home/site/wwwroot/index.html && rm -rf /usr/local/apache2/htdocs/* && ln -s /home/site/wwwroot /usr/local/apache2/htdocs && exec httpd-foreground'"
   }
 
-  app_settings = {
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
-  }
+  # app_settings = {
+  #   "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
+  # }
 }
