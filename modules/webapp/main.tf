@@ -23,11 +23,11 @@ resource "azurerm_linux_web_app" "this" {
       docker_registry_url = var.docker_registry
     }
     always_on = false
+
+    app_command_line = "/bin/sh -c 'echo \"This is ${var.env} environment.\" > /usr/local/apache2/htdocs/index.html && exec httpd -DFOREGROUND \"$@\"'"
   }
 
   app_settings = {
-    "ENVIRONMENT"                         = var.env
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
-    "STARTUP_COMMAND"                     = "/home/site/startup.sh"
   }
 }
