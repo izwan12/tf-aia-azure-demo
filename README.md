@@ -19,7 +19,8 @@ GitHub Action automatically handles:
 - Terraform initialization for each environment to separate workspaces.
 - Deploys to separate workspaces based on environment (dev, uat, prod).
 ![workspaces](./images/workspaces.png)
-- `Terraform Plan` runs on every PR.
+- `Terraform Plan` runs on every PR and auto comments the PR with result.
+![alt text](./images/action4.png)
 - `Terraform Apply` runs only on merge to `main`.
 - Approval required for PROD.
 
