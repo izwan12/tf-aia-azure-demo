@@ -23,6 +23,7 @@ GitHub Action automatically handles:
 ![alt text](./images/action4.png)
 - `Terraform Apply` runs only on merge to `main`.
 - Approval required for PROD.
+![alt text](./images/action5.png)
 
 ## How to Deploy
 
