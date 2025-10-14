@@ -1,5 +1,5 @@
 variable "webapp_vars" {
-  description = "List of environment objects (env, sku, image, location override)"
+  description = "List of webapp variables"
   type = list(object({
     env          = string
     location     = string
