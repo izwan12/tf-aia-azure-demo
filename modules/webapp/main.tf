@@ -24,10 +24,11 @@ resource "azurerm_linux_web_app" "this" {
     }
     always_on = false
 
-    app_command_line = "/bin/sh -c 'echo \"This is ${var.env} environment.\" > /usr/local/apache2/htdocs/index.html && exec httpd -DFOREGROUND \"$@\"'"
+    app_command_line = "/home/site/wwwroot/startup.sh"
   }
 
   app_settings = {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
+    "ENVIRONMENT"                         = "${var.env}"
   }
 }
