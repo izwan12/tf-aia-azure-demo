@@ -132,11 +132,11 @@ webapp_vars = [
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_webapp_vars"></a> [webapp\_vars](#input\_webapp\_vars) | List of environment objects (env, sku, image, location override) | <pre>list(object({<br/>    env          = string<br/>    location     = string<br/>    sku_name     = string<br/>    docker_image = string<br/>    os_type      = string<br/>  }))</pre> | n/a | yes |
+| <a name="input_webapp_vars"></a> [webapp\_vars](#input\_webapp\_vars) | List of webapp variables | <pre>list(object({<br/>    env          = string<br/>    location     = string<br/>    sku_name     = string<br/>    docker_image = string<br/>    os_type      = string<br/>  }))</pre> | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_webapp_url"></a> [webapp\_url](#output\_webapp\_url) | URLs for all deployed environments |
+| <a name="output_webapp_url"></a> [webapp\_url](#output\_webapp\_url) | URL of the web app |
 <!-- END_TF_DOCS -->
