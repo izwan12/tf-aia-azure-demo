@@ -25,7 +25,9 @@ resource "azurerm_linux_web_app" "this" {
     always_on = false
   }
 
-  # app_settings = {
-  #   "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
-  # }
+  app_settings = {
+    "ENVIRONMENT"                         = var.env
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
+    "STARTUP_COMMAND"                     = "/home/site/startup.sh"
+  }
 }
